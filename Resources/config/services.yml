@@ -1,0 +1,15 @@
+parameters:
+    davidmoravek_doctrine_transaction.controller_resolver.class: Davidmoravek\DoctrineTransactionBundle\HttpKernel\ControllerResolver
+    davidmoravek_doctrine_transaction.transaction_listener.class: Davidmoravek\DoctrineTransactionBundle\EventListener\TransactionListener
+
+
+services:
+    davidmoravek_doctrine_transaction.controller_resolver:
+        class: %davidmoravek_doctrine_transaction.controller_resolver.class%
+        arguments: [@default.controller_resolver]
+
+    davidmoravek_doctrine_transaction.transaction_listener:
+        class: %davidmoravek_doctrine_transaction.transaction_listener.class%
+        arguments: [@annotation_reader, @doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_subscriber }
